@@ -13,39 +13,38 @@ export const App = () => {
           <input type="checkbox" className="regularCheckbox"></input>
           Alle Anzeigen
         </div>
-        <div id="taskList">
-          <table>
-            <thead>
-              <tr>
-                <tr></tr>
-                <th>Wichtigkeit</th>
-                <th>Aufgabe</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input type="checkbox" className="regularCheckbox"></input>
-                </td>
-                <td>2</td>
-                <td>task1</td>
-                <td>
-                  <button type="button">Löschen</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="checkbox" className="regularCheckbox"></input>
-                </td>
-                <td>3</td>
-                <td>task2</td>
-                <td>
-                  <button type="button">Löschen</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="table">
+          <div className="header"></div>
+          <div className="header">Wichtigkeit</div>
+          <div className="header">Aufgabe</div>
+          <div className="header"></div>
+          <div>
+            <input type="checkbox" className="regularCheckbox"></input>
+          </div>
+          <div className="symbol">
+            <div className="lightning_hidden">&#128498;</div>
+          </div>
+          <div>Johnny</div>
+          <div>
+            <button type="button">Löschen</button>
+          </div>
+          <div>
+            <input type="checkbox" className="regularCheckbox"></input>
+          </div>
+          <div>3</div>
+          <div>Saburo</div>
+          <div>
+            <button type="button">Löschen</button>
+          </div>
+          <div>
+            <input type="checkbox" className="regularCheckbox"></input>
+          </div>
+          <div>3</div>
+          <div>Judy</div>
+          <div>
+            <button type="button">Löschen</button>
+          </div>
+          <div></div>
         </div>
       </div>
     </>
