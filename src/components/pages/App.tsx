@@ -6,8 +6,14 @@ export const App = () => {
       <div className="title">ToDo App</div>
       <div className="content">
         <div>
-          <input type="text" placeholder="Aufgabe..."></input>
-          <button type="button">Hinzufügen</button>
+          <input
+            type="text"
+            className="regularInput"
+            placeholder="Aufgabe..."
+          ></input>
+          <button type="button" className="regularButton">
+            Hinzufügen
+          </button>
         </div>
         <div>
           <input type="checkbox" className="regularCheckbox"></input>
@@ -26,7 +32,9 @@ export const App = () => {
           </div>
           <div>Johnny</div>
           <div>
-            <button type="button">Löschen</button>
+            <button type="button" className="regularButton">
+              Löschen
+            </button>
           </div>
           <div>
             <input type="checkbox" className="regularCheckbox"></input>
@@ -34,7 +42,9 @@ export const App = () => {
           <div>3</div>
           <div>Saburo</div>
           <div>
-            <button type="button">Löschen</button>
+            <button type="button" className="regularButton">
+              Löschen
+            </button>
           </div>
           <div>
             <input type="checkbox" className="regularCheckbox"></input>
@@ -42,7 +52,9 @@ export const App = () => {
           <div>3</div>
           <div>Judy</div>
           <div>
-            <button type="button">Löschen</button>
+            <button type="button" className="regularButton">
+              Löschen
+            </button>
           </div>
           <div></div>
         </div>

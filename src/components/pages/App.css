@@ -41,13 +41,13 @@ body {
   font-weight: bold;
 }
 
-button {
+.regularButton {
   background-color: rgb(47, 227, 255);
   font-size: 30px;
   color: white;
 }
 
-input {
+.regularInput {
   font-size: 30px;
   border-color: rgb(47, 227, 255);
 }
