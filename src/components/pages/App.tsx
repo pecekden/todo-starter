@@ -1,6 +1,57 @@
+import { Importance } from 'models/Importance'
+import { createTodo, Todo } from 'models/Todo'
+import { ChangeEvent, useState } from 'react'
 import './App.css'
 
 export const App = () => {
+  const [todos, setTodos] = useState<Todo[]>([])
+  const [todoInputText, setTodoInputText] = useState<string>('')
+  const [showAll, setShowAll] = useState<boolean>(true)
+
+  const addTodo = () => {
+    if (todoInputText) {
+      setTodos([...todos, createTodo(todoInputText)])
+      setTodoInputText('')
+    }
+  }
+
+  const removeTodo = (id: string) => {
+    setTodos(todos.filter(t => t.id !== id))
+  }
+
+  const updateTodoImportance = (id: string, newImportance: Importance) => {
+    const newTodos = todos.map(t => {
+      if (t.id === id) {
+        return { ...t, importance: newImportance }
+      }
+      return t
+    })
+    setTodos(newTodos)
+  }
+  const changeTodoIsDone = (id: string) => {
+    const newTodos = todos.map(t => {
+      if (t.id === id) {
+        return { ...t, done: !t.done }
+      }
+      return t
+    })
+    setTodos(newTodos)
+  }
+
+  const updateTodoInputText = (event: ChangeEvent<HTMLInputElement>) => {
+    setTodoInputText(event.target.value)
+  }
+
+  const getImportanceIcons = (importance: Importance) => {
+    return (
+      <>
+        {[...Array(1)].map(_ => {
+          return <button className="lightning">&#128498;</button>
+        })}
+      </>
+    )
+  }
+
   return (
     <>
       <div className="title">ToDo App</div>
@@ -10,13 +61,20 @@ export const App = () => {
             type="text"
             className="regularInput"
             placeholder="Aufgabe..."
+            onChange={updateTodoInputText}
+            value={todoInputText}
           ></input>
-          <button type="button" className="regularButton">
+          <button type="button" className="regularButton" onClick={addTodo}>
             Hinzufügen
           </button>
         </div>
         <div>
-          <input type="checkbox" className="regularCheckbox"></input>
+          <input
+            type="checkbox"
+            className="regularCheckbox"
+            checked={showAll}
+            onClick={() => setShowAll(!showAll)}
+          ></input>
           Alle Anzeigen
         </div>
         <div className="table">
@@ -24,39 +82,31 @@ export const App = () => {
           <div className="header">Wichtigkeit</div>
           <div className="header">Aufgabe</div>
           <div className="header"></div>
-          <div>
-            <input type="checkbox" className="regularCheckbox"></input>
-          </div>
-          <div className="symbol">
-            <div className="lightning_hidden">&#128498;</div>
-          </div>
-          <div>Johnny</div>
-          <div>
-            <button type="button" className="regularButton">
-              Löschen
-            </button>
-          </div>
-          <div>
-            <input type="checkbox" className="regularCheckbox"></input>
-          </div>
-          <div>3</div>
-          <div>Saburo</div>
-          <div>
-            <button type="button" className="regularButton">
-              Löschen
-            </button>
-          </div>
-          <div>
-            <input type="checkbox" className="regularCheckbox"></input>
-          </div>
-          <div>3</div>
-          <div>Judy</div>
-          <div>
-            <button type="button" className="regularButton">
-              Löschen
-            </button>
-          </div>
-          <div></div>
+          {todos.map(todo => (
+            <>
+              <input
+                type="checkbox"
+                className="regularCheckbox"
+                checked={todo.done}
+                onClick={() => changeTodoIsDone(todo.id)}
+              ></input>
+              <div>{getImportanceIcons(todo.importance)}</div>
+              <div
+                style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
+              >
+                {todo.text}
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="regularButton"
+                  onClick={() => removeTodo(todo.id)}
+                >
+                  Löschen
+                </button>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </>

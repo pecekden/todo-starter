@@ -17,12 +17,10 @@ body {
   font-size: 30px;
 }
 
-.symbol {
-  display: block;
-}
-
-.lightning_hidden {
+.lightning {
   color: blue;
+  background-color: transparent;
+  border: none;
   font-size: 130%;
   opacity: 0.4;
   -webkit-text-stroke: 3px black;
