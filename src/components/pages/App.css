@@ -17,20 +17,28 @@ body {
   font-size: 30px;
 }
 
+.importance {
+  display: flex;
+}
+
 .lightning {
   color: blue;
+  font-size: 130%;
+  -webkit-text-stroke: 3px black;
+  width: 50px;
+  cursor: pointer;
   background-color: transparent;
   border: none;
-  font-size: 130%;
-  opacity: 0.4;
-  -webkit-text-stroke: 3px black;
-  display: block;
+}
+
+.lightning:hover {
+  color: rgb(134, 134, 255);
 }
 
 .table {
   margin-top: 100px;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 60px 240px auto 60px;
   column-gap: 1%;
   row-gap: 0.5em;
 }

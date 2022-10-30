@@ -8,6 +8,8 @@ export const App = () => {
   const [todoInputText, setTodoInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
 
+  const importanceArray: Importance[] = [1, 2, 3]
+
   const addTodo = () => {
     if (todoInputText) {
       setTodos([...todos, createTodo(todoInputText)])
@@ -42,13 +44,22 @@ export const App = () => {
     setTodoInputText(event.target.value)
   }
 
-  const getImportanceIcons = (importance: Importance) => {
+  const getImportanceIcons = (todoId: string, importance: Importance) => {
     return (
-      <>
-        {[...Array(1)].map(_ => {
-          return <button className="lightning">&#128498;</button>
+      <div className="imprtance">
+        {importanceArray.map(n => {
+          return (
+            <button
+              className="lightning"
+              key={n}
+              style={{ opacity: n <= importance ? '1' : '0.3' }}
+              onClick={() => updateTodoImportance(todoId, n)}
+            >
+              &#128498;
+            </button>
+          )
         })}
-      </>
+      </div>
     )
   }
 
@@ -77,37 +88,43 @@ export const App = () => {
           ></input>
           Alle Anzeigen
         </div>
-        <div className="table">
-          <div className="header"></div>
-          <div className="header">Wichtigkeit</div>
-          <div className="header">Aufgabe</div>
-          <div className="header"></div>
-          {todos.map(todo => (
-            <>
-              <input
-                type="checkbox"
-                className="regularCheckbox"
-                checked={todo.done}
-                onClick={() => changeTodoIsDone(todo.id)}
-              ></input>
-              <div>{getImportanceIcons(todo.importance)}</div>
-              <div
-                style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
-              >
-                {todo.text}
-              </div>
-              <div>
-                <button
-                  type="button"
-                  className="regularButton"
-                  onClick={() => removeTodo(todo.id)}
+        {todos.length ? (
+          <div className="table">
+            <div className="header"></div>
+            <div className="header">Wichtigkeit</div>
+            <div className="header">Aufgabe</div>
+            <div className="header"></div>
+            {todos.map(todo => (
+              <>
+                <input
+                  type="checkbox"
+                  className="regularCheckbox"
+                  checked={todo.done}
+                  onClick={() => changeTodoIsDone(todo.id)}
+                ></input>
+                <div>{getImportanceIcons(todo.id, todo.importance)}</div>
+                <div
+                  style={{
+                    textDecoration: todo.done ? 'line-through' : 'none',
+                  }}
                 >
-                  Löschen
-                </button>
-              </div>
-            </>
-          ))}
-        </div>
+                  {todo.text}
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className="regularButton"
+                    onClick={() => removeTodo(todo.id)}
+                  >
+                    Löschen
+                  </button>
+                </div>
+              </>
+            ))}
+          </div>
+        ) : (
+          <div>Keine Todos gefunden</div>
+        )}
       </div>
     </>
   )
