@@ -7,6 +7,7 @@ export const App = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [todoInputText, setTodoInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
+  const [sorting, setSorting] = useState<string>('unsorted')
 
   const importanceArray: Importance[] = [1, 2, 3]
 
@@ -63,6 +64,24 @@ export const App = () => {
     )
   }
 
+  const getFilteredTodosRelatedToDone = () => {
+    if (showAll) {
+      return todos
+    }
+    return todos.filter(todo => !todo.done)
+  }
+
+  const getFilteredTodosRelatedToInputText = (todoList: Todo[]) => {
+    if (todoInputText) {
+      return todoList.filter(todo => todo.text.includes(todoInputText))
+    }
+    return todoList
+  }
+
+  const getFilteredTodos = () => {
+    return getFilteredTodosRelatedToInputText(getFilteredTodosRelatedToDone())
+  }
+
   return (
     <>
       <div className="title">ToDo App</div>
@@ -94,7 +113,7 @@ export const App = () => {
             <div className="header">Wichtigkeit</div>
             <div className="header">Aufgabe</div>
             <div className="header"></div>
-            {todos.map(todo => (
+            {getFilteredTodos().map(todo => (
               <>
                 <input
                   type="checkbox"
