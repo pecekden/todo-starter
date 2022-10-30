@@ -1,4 +1,5 @@
 import { Importance } from 'models/Importance'
+import { Sorting } from 'models/Sorting'
 import { createTodo, Todo } from 'models/Todo'
 import { ChangeEvent, useState } from 'react'
 import './App.css'
@@ -7,7 +8,7 @@ export const App = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [todoInputText, setTodoInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
-  const [sorting, setSorting] = useState<string>('unsorted')
+  const [sorting, setSorting] = useState<Sorting>('unsorted')
 
   const importanceArray: Importance[] = [1, 2, 3]
 
@@ -78,9 +79,59 @@ export const App = () => {
     return todoList
   }
 
+  const setSortingForImportance = () => {
+    if (sorting === 'descendingImportance') {
+      setSorting('ascendingImportance')
+    } else setSorting('descendingImportance')
+  }
+
+  const setSortingForTodoText = () => {
+    if (sorting === 'descendingTodoText') {
+      setSorting('ascendingTodoText')
+    } else setSorting('descendingTodoText')
+  }
+
+  const getSortedTodos = (todoList: Todo[]) => {
+    switch (sorting) {
+      case 'ascendingImportance':
+        todoList.sort((a, b) => {
+          if (a.importance < b.importance) return -1
+          if (a.importance > b.importance) return 1
+          return 0
+        })
+        break
+      case 'descendingImportance':
+        todoList.sort((a, b) => {
+          if (a.importance < b.importance) return 1
+          if (a.importance > b.importance) return -1
+          return 0
+        })
+        break
+      case 'ascendingTodoText':
+        todoList.sort((a, b) => {
+          if (a.text < b.text) return 1
+          if (a.text === b.text) return 0
+          return -1
+        })
+        break
+      case 'descendingTodoText':
+        todoList.sort((a, b) => {
+          if (a.text < b.text) return -1
+          if (a.text === b.text) return 0
+          return 1
+        })
+        break
+      case 'unsorted':
+        break
+    }
+    return todoList
+  }
+
   const getFilteredTodos = () => {
     return getFilteredTodosRelatedToInputText(getFilteredTodosRelatedToDone())
   }
+
+  const getFilteredAndSortedTodos = () => { return getSortedTodos(getFilteredTodos())}
 
   return (
     <>
@@ -109,11 +160,19 @@ export const App = () => {
         </div>
         {todos.length ? (
           <div className="table">
-            <div className="header"></div>
-            <div className="header">Wichtigkeit</div>
-            <div className="header">Aufgabe</div>
-            <div className="header"></div>
-            {getFilteredTodos().map(todo => (
+            <div></div>
+            <div className="headerClickable" onClick={setSortingForImportance}>
+              Wichtigkeit
+              {sorting === 'ascendingImportance' ? <div> &#8593;</div> : ''}
+              {sorting === 'descendingImportance' ? <div> &#8595;</div> : ''}
+            </div>
+            <div className="headerClickable" onClick={setSortingForTodoText}>
+              Aufgabe
+              {sorting === 'ascendingTodoText' ? <div> &#8593;</div> : ''}
+              {sorting === 'descendingTodoText' ? <div>&#8595;</div> : ''}
+            </div>
+            <div></div>
+            {getFilteredAndSortedTodos().map(todo => (
               <>
                 <input
                   type="checkbox"
@@ -142,7 +201,7 @@ export const App = () => {
             ))}
           </div>
         ) : (
-          <div>Keine Todos gefunden</div>
+          <div>Es gibt keine Todos</div>
         )}
       </div>
     </>
