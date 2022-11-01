@@ -3,6 +3,8 @@ import { Sorting } from 'models/Sorting'
 import { createTodo, Todo } from 'models/Todo'
 import { ChangeEvent, useState } from 'react'
 import './App.css'
+import { InputSearch } from './InputSearch'
+import { Title } from './Title'
 
 export const App = () => {
   const [todos, setTodos] = useState<Todo[]>([])
@@ -131,24 +133,19 @@ export const App = () => {
     return getFilteredTodosRelatedToInputText(getFilteredTodosRelatedToDone())
   }
 
-  const getFilteredAndSortedTodos = () => { return getSortedTodos(getFilteredTodos())}
+  const getFilteredAndSortedTodos = () => {
+    return getSortedTodos(getFilteredTodos())
+  }
 
   return (
     <>
-      <div className="title">ToDo App</div>
+      <Title />
       <div className="content">
-        <div>
-          <input
-            type="text"
-            className="regularInput"
-            placeholder="Aufgabe..."
-            onChange={updateTodoInputText}
-            value={todoInputText}
-          ></input>
-          <button type="button" className="regularButton" onClick={addTodo}>
-            Hinzufügen
-          </button>
-        </div>
+        <InputSearch
+          updateTodoInputText={updateTodoInputText}
+          todoInputText={todoInputText}
+          addTodo={addTodo}
+        ></InputSearch>
         <div>
           <input
             type="checkbox"
