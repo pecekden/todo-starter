@@ -35,8 +35,8 @@ export const InputSearch = ({
     <>
       <InputText
         placeholder="Aufgabe..."
+        onChange={updateTodoInputText}
         value={todoInputText}
-        onChange={() => updateTodoInputText}
       ></InputText>
       <Button buttonText="Hinzufügen" onClick={addTodo}></Button>
       <div>

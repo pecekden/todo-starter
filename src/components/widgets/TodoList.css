@@ -1,0 +1,13 @@
+.table {
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: 60px auto auto auto;
+  column-gap: 1%;
+  row-gap: 0.5em;
+}
+
+.headerClickable {
+  display: flex;
+  font-weight: bold;
+  cursor: pointer;
+}

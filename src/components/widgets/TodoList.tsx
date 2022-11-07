@@ -5,6 +5,7 @@ import { TaskDescription } from 'components/controls/Tasks/TaskDescription'
 import { Sorting } from 'models/Sorting'
 import { Todo } from 'models/Todo'
 import { Dispatch, SetStateAction, useState } from 'react'
+import './TodoList.css'
 
 interface Props {
   showAll: boolean
