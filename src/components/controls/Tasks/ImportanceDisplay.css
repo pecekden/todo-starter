@@ -1,0 +1,17 @@
+.importance {
+  display: flex;
+}
+
+.lightning {
+  color: blue;
+  font-size: 130%;
+  -webkit-text-stroke: 3px black;
+  width: 50px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.lightning:hover {
+  color: rgb(134, 134, 255);
+}

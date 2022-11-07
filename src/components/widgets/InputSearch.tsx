@@ -1,3 +1,6 @@
+import { Button } from 'components/controls/Tasks/Button'
+import { Checkbox } from 'components/controls/Tasks/Checkbox'
+import { InputText } from 'components/controls/Tasks/InputText'
 import { createTodo, Todo } from 'models/Todo'
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
@@ -16,7 +19,7 @@ export const InputSearch = ({
   setTodos,
   todos,
   showAll,
-  setShowAll
+  setShowAll,
 }: Props) => {
   const addTodo = () => {
     if (todoInputText) {
@@ -30,24 +33,18 @@ export const InputSearch = ({
 
   return (
     <>
-      <input
-        type="text"
-        className="regularInput"
+      <InputText
         placeholder="Aufgabe..."
-        onChange={updateTodoInputText}
         value={todoInputText}
-      ></input>
-      <button type="button" className="regularButton" onClick={addTodo}>
-        Hinzufügen
-      </button>
+        onChange={() => updateTodoInputText}
+      ></InputText>
+      <Button buttonText="Hinzufügen" onClick={addTodo}></Button>
       <div>
-        <input
-          type="checkbox"
-          className="regularCheckbox"
-          checked={showAll}
+        <Checkbox
+          text="Alle Anzeigen"
+          isChecked={showAll}
           onClick={() => setShowAll(!showAll)}
-        ></input>
-        Alle Anzeigen
+        ></Checkbox>
       </div>
     </>
   )

@@ -2,43 +2,10 @@ body {
   background-color: rgb(0, 111, 128);
 }
 
-.title {
-  /* height: 10%; */
-  font-size: 60px;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding-left: 50px;
-  background-color: rgb(0, 213, 255);
-}
-
-.content {
-  padding: 10%;
-  font-size: 30px;
-}
-
-.importance {
-  display: flex;
-}
-
-.lightning {
-  color: blue;
-  font-size: 130%;
-  -webkit-text-stroke: 3px black;
-  width: 50px;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-}
-
-.lightning:hover {
-  color: rgb(134, 134, 255);
-}
-
 .table {
   margin-top: 100px;
   display: grid;
-  grid-template-columns: 60px 290px auto 60px;
+  grid-template-columns: 60px auto auto auto;
   column-gap: 1%;
   row-gap: 0.5em;
 }
@@ -49,18 +16,7 @@ body {
   cursor: pointer;
 }
 
-.regularButton {
-  background-color: rgb(47, 227, 255);
-  font-size: 30px;
-  color: white;
-}
-
 .regularInput {
   font-size: 30px;
   border-color: rgb(47, 227, 255);
-}
-
-.regularCheckbox {
-  width: 20px;
-  height: 20px;
 }

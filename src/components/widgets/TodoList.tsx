@@ -1,4 +1,7 @@
-import { Importance } from 'models/Importance'
+import { Button } from 'components/controls/Tasks/Button'
+import { Checkbox } from 'components/controls/Tasks/Checkbox'
+import { ImportanceDisplay } from 'components/controls/Tasks/ImportanceDisplay'
+import { TaskDescription } from 'components/controls/Tasks/TaskDescription'
 import { Sorting } from 'models/Sorting'
 import { Todo } from 'models/Todo'
 import { Dispatch, SetStateAction, useState } from 'react'
@@ -10,10 +13,13 @@ interface Props {
   setTodos: Dispatch<SetStateAction<Todo[]>>
 }
 
-export const Display = ({ showAll, todoInputText, todos, setTodos }: Props) => {
+export const TodoList = ({
+  showAll,
+  todoInputText,
+  todos,
+  setTodos,
+}: Props) => {
   const [sorting, setSorting] = useState<Sorting>('unsorted')
-
-  const importanceArray: Importance[] = [1, 2, 3]
 
   const setSortingForImportance = () => {
     if (sorting === 'descendingImportance') {
@@ -33,35 +39,6 @@ export const Display = ({ showAll, todoInputText, todos, setTodos }: Props) => {
       return t
     })
     setTodos(newTodos)
-  }
-
-  const updateTodoImportance = (id: string, newImportance: Importance) => {
-    const newTodos = todos.map(t => {
-      if (t.id === id) {
-        return { ...t, importance: newImportance }
-      }
-      return t
-    })
-    setTodos(newTodos)
-  }
-
-  const getImportanceIcons = (todoId: string, importance: Importance) => {
-    return (
-      <div className="imprtance">
-        {importanceArray.map(n => {
-          return (
-            <button
-              className="lightning"
-              key={n}
-              style={{ opacity: n <= importance ? '1' : '0.3' }}
-              onClick={() => updateTodoImportance(todoId, n)}
-            >
-              &#128498;
-            </button>
-          )
-        })}
-      </div>
-    )
   }
 
   const getFilteredTodosRelatedToDone = () => {
@@ -144,29 +121,24 @@ export const Display = ({ showAll, todoInputText, todos, setTodos }: Props) => {
       <div></div>
       {getFilteredAndSortedTodos().map(todo => (
         <>
-          <input
-            type="checkbox"
-            className="regularCheckbox"
-            checked={todo.done}
+          <Checkbox
+            isChecked={todo.done}
             onClick={() => changeTodoIsDone(todo.id)}
-          ></input>
-          <div>{getImportanceIcons(todo.id, todo.importance)}</div>
-          <div
-            style={{
-              textDecoration: todo.done ? 'line-through' : 'none',
-            }}
-          >
-            {todo.text}
-          </div>
-          <div>
-            <button
-              type="button"
-              className="regularButton"
-              onClick={() => removeTodo(todo.id)}
-            >
-              Löschen
-            </button>
-          </div>
+          ></Checkbox>
+          <ImportanceDisplay
+            todoId={todo.id}
+            importance={todo.importance}
+            todos={todos}
+            setTodos={setTodos}
+          ></ImportanceDisplay>
+          <TaskDescription
+            isDone={todo.done}
+            todoText={todo.text}
+          ></TaskDescription>
+          <Button
+            buttonText="Löschen"
+            onClick={() => removeTodo(todo.id)}
+          ></Button>
         </>
       ))}
     </div>
