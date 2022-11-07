@@ -1,0 +1,9 @@
+.checkbox {
+  display: inline;
+  width: 20px;
+  height: 20px;
+}
+.checkbox--text {
+  display: inline;
+  margin-right: 20px;
+}

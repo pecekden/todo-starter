@@ -1,0 +1,1 @@
+export type Sorting = "ascendingImportance" | "descendingImportance" | "ascendingTodoText" | "descendingTodoText" | "unsorted"

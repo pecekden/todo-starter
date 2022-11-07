@@ -1,5 +1,12 @@
 import './App.css'
+import { Header } from './Header'
+import { Content } from './Content'
 
 export const App = () => {
-  return <div>{/* TOOD: implement App */}</div>
+  return (
+    <>
+      <Header />
+      <Content />
+    </>
+  )
 }
