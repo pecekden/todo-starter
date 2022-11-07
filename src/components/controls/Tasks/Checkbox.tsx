@@ -13,6 +13,6 @@ export const Checkbox = ({ isChecked, onClick, text }: Props) => (
       checked={isChecked}
       onClick={onClick}
     ></input>
-    {text}
+    <div className="regularCheckbox--text">{text}</div>
   </>
 )

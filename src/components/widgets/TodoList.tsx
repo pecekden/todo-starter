@@ -9,6 +9,7 @@ import './TodoList.css'
 
 interface Props {
   showAll: boolean
+  showExact: boolean
   todoInputText: string
   todos: Todo[]
   setTodos: Dispatch<SetStateAction<Todo[]>>
@@ -16,6 +17,7 @@ interface Props {
 
 export const TodoList = ({
   showAll,
+  showExact,
   todoInputText,
   todos,
   setTodos,
@@ -51,7 +53,12 @@ export const TodoList = ({
 
   const getFilteredTodosRelatedToInputText = (todoList: Todo[]) => {
     if (todoInputText) {
-      return todoList.filter(todo => todo.text.includes(todoInputText))
+      if(showExact){
+        return todoList.filter(todo => todo.text.includes(todoInputText))
+      }
+      else{
+        return todoList.filter(todo => todo.text.toLowerCase().replace(" ","").includes(todoInputText.toLowerCase().replace(" ","")))
+      }
     }
     return todoList
   }

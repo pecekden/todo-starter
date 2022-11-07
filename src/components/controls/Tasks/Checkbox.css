@@ -1,4 +1,9 @@
 .regularCheckbox {
+  display: inline;
   width: 20px;
   height: 20px;
+}
+.regularCheckbox--text {
+  display: inline;
+  margin-right: 20px;
 }

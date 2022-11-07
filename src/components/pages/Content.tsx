@@ -8,6 +8,7 @@ export const Content = () => {
   const [todos, setTodos] = useState<Todo[]>([])
   const [todoInputText, setTodoInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
+  const [showExact, setShowExact] = useState<boolean>(true)
 
   return (
     <>
@@ -19,9 +20,12 @@ export const Content = () => {
           todos={todos}
           showAll={showAll}
           setShowAll={setShowAll}
+          showExact={showExact}
+          setShowExact={setShowExact}
         ></InputSearch>
         <TodoList
           showAll={showAll}
+          showExact={showExact}
           todoInputText={todoInputText}
           todos={todos}
           setTodos={setTodos}

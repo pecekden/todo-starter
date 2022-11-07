@@ -4,6 +4,8 @@ import { InputText } from 'components/controls/Tasks/InputText'
 import { createTodo, Todo } from 'models/Todo'
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
+//Was ist dispatch, change event und setstateaction?
+
 interface Props {
   todoInputText: string
   setTodoInputText: Dispatch<SetStateAction<string>>
@@ -11,6 +13,8 @@ interface Props {
   todos: Todo[]
   showAll: boolean
   setShowAll: Dispatch<SetStateAction<boolean>>
+  showExact: boolean
+  setShowExact: Dispatch<SetStateAction<boolean>>
 }
 
 export const InputSearch = ({
@@ -20,6 +24,8 @@ export const InputSearch = ({
   todos,
   showAll,
   setShowAll,
+  showExact,
+  setShowExact
 }: Props) => {
   const addTodo = () => {
     if (todoInputText) {
@@ -45,7 +51,14 @@ export const InputSearch = ({
           isChecked={showAll}
           onClick={() => setShowAll(!showAll)}
         ></Checkbox>
+        <Checkbox
+          text="Nache exakter Bezeichnung filtern"
+          isChecked={showExact}
+          onClick={() => setShowExact(!showExact)}
+        ></Checkbox>
       </div>
+     
+
     </>
   )
 }
