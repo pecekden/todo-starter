@@ -5,7 +5,7 @@ interface Props {
   onClick: () => void
 }
 export const Button = ({ buttonText, onClick }: Props) => (
-  <button type="button" className="regularButton" onClick={onClick}>
+  <button type="button" className="button" onClick={onClick}>
     {buttonText}
   </button>
 )

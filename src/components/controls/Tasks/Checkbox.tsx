@@ -9,10 +9,10 @@ export const Checkbox = ({ isChecked, onClick, text }: Props) => (
   <>
     <input
       type="checkbox"
-      className="regularCheckbox"
+      className="checkbox"
       checked={isChecked}
       onClick={onClick}
     ></input>
-    <div className="regularCheckbox--text">{text}</div>
+    <div className="checkbox--text">{text}</div>
   </>
 )
