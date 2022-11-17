@@ -12,6 +12,7 @@ interface Props {
   showExact: boolean
   todoInputText: string
   todos: Todo[]
+  // Check if that is the right way for a UseState Action and compare with the project from the others
   setTodos: Dispatch<SetStateAction<Todo[]>>
 }
 
@@ -24,6 +25,7 @@ export const TodoList = ({
 }: Props) => {
   const [sorting, setSorting] = useState<Sorting>('unsorted')
 
+  // TODO: Check if there is a better place (other file?) for the methods 
   const setSortingForImportance = () => {
     if (sorting === 'descendingImportance') {
       setSorting('ascendingImportance')
@@ -53,11 +55,15 @@ export const TodoList = ({
 
   const getFilteredTodosRelatedToInputText = (todoList: Todo[]) => {
     if (todoInputText) {
-      if(showExact){
+      if (showExact) {
         return todoList.filter(todo => todo.text.includes(todoInputText))
-      }
-      else{
-        return todoList.filter(todo => todo.text.toLowerCase().replace(" ","").includes(todoInputText.toLowerCase().replace(" ","")))
+      } else {
+        return todoList.filter(todo =>
+          todo.text
+            .toLowerCase()
+            .replace(' ', '')
+            .includes(todoInputText.toLowerCase().replace(' ', ''))
+        )
       }
     }
     return todoList
@@ -68,7 +74,7 @@ export const TodoList = ({
       setSorting('ascendingTodoText')
     } else setSorting('descendingTodoText')
   }
-
+// Check if method is correct (compare with other project)
   const getSortedTodos = (todoList: Todo[]) => {
     switch (sorting) {
       case 'ascendingImportance':
@@ -104,7 +110,7 @@ export const TodoList = ({
     }
     return todoList
   }
-
+// TODO: check what is a smart way to do that (naming!!!)
   const getFilteredTodos = () => {
     return getFilteredTodosRelatedToInputText(getFilteredTodosRelatedToDone())
   }
@@ -118,6 +124,7 @@ export const TodoList = ({
       <div></div>
       <div className="headerClickable" onClick={setSortingForImportance}>
         Wichtigkeit
+        {/* TODO: check if it's better with a function */}
         {sorting === 'ascendingImportance' ? <div> &#8593;</div> : ''}
         {sorting === 'descendingImportance' ? <div> &#8595;</div> : ''}
       </div>
@@ -127,6 +134,7 @@ export const TodoList = ({
         {sorting === 'descendingTodoText' ? <div>&#8595;</div> : ''}
       </div>
       <div></div>
+      {/* TODO: check mapping table from the lecture */}
       {getFilteredAndSortedTodos().map(todo => (
         <>
           <Checkbox

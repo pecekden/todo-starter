@@ -3,8 +3,9 @@
 }
 
 .lightning {
+  align-self: center;
   color: blue;
-  font-size: 130%;
+  font-size: 100%;
   -webkit-text-stroke: 3px black;
   width: 50px;
   cursor: pointer;
