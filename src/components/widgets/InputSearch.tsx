@@ -2,19 +2,19 @@ import { Button } from 'components/controls/Tasks/Button'
 import { Checkbox } from 'components/controls/Tasks/Checkbox'
 import { InputText } from 'components/controls/Tasks/InputText'
 import { createTodo, Todo } from 'models/Todo'
-import { ChangeEvent} from 'react'
+import { ChangeEvent } from 'react'
 
 //Was ist dispatch, change event und setstateaction?
 
 interface Props {
   todoInputText: string
-  setTodoInputText: (inputText:string) => void
-  setTodos: (todos:Todo[]) => void
+  setTodoInputText: (inputText: string) => void
+  setTodos: (todos: Todo[]) => void
   todos: Todo[]
   showAll: boolean
-  setShowAll: (setShowAll:boolean) => void
+  setShowAll: (setShowAll: boolean) => void
   showExact: boolean
-  setShowExact: (showExact:boolean) => void
+  setShowExact: (showExact: boolean) => void
 }
 
 export const InputSearch = ({
@@ -25,7 +25,7 @@ export const InputSearch = ({
   showAll,
   setShowAll,
   showExact,
-  setShowExact
+  setShowExact,
 }: Props) => {
   const addTodo = () => {
     if (todoInputText) {

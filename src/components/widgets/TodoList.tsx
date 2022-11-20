@@ -1,5 +1,11 @@
-import { getFilteredTodosByInputText, getFinishedTodos } from 'components/controls/Content/Filtering'
-import { changeOrderDirection, sortGivenTodoList } from 'components/controls/Content/Sorting'
+import {
+  getFilteredTodosByInputText,
+  getFinishedTodos,
+} from 'components/controls/Content/Filtering'
+import {
+  changeOrderDirection,
+  sortGivenTodoList,
+} from 'components/controls/Content/Sorting'
 import { Button } from 'components/controls/Tasks/Button'
 import { Checkbox } from 'components/controls/Tasks/Checkbox'
 import { ImportanceDisplay } from 'components/controls/Tasks/ImportanceDisplay'
@@ -14,7 +20,7 @@ interface Props {
   showExact: boolean
   todoInputText: string
   todos: Todo[]
-  setTodos: (todos:Todo[]) => void
+  setTodos: (todos: Todo[]) => void
 }
 
 export const TodoList = ({
@@ -26,7 +32,7 @@ export const TodoList = ({
 }: Props) => {
   const [sortingColumn, setSortingColumn] = useState<SortingColumn>('None')
   const [sortingOrder, setSortingOrder] = useState<SortingOrder>('unsorted')
-  
+
   const removeTodo = (id: string) => {
     setTodos(todos.filter(t => t.id !== id))
   }
@@ -39,19 +45,25 @@ export const TodoList = ({
     })
     setTodos(newTodos)
   }
-  const setSorting = (sortingColumn:SortingColumn) => {
+  const setSorting = (sortingColumn: SortingColumn) => {
     setSortingColumn(sortingColumn)
     setSortingOrder(changeOrderDirection(sortingOrder))
   }
   const sortByGivenAttributes = (todoList: Todo[]) => {
-    return sortGivenTodoList(todoList,sortingColumn,sortingOrder )
-}
-  const getFilteredAndSortedTodos = () => {
-    return sortByGivenAttributes(getFilteredTodosByInputText(getFinishedTodos(todos,showAll),todoInputText,showExact))
+    return sortGivenTodoList(todoList, sortingColumn, sortingOrder)
   }
-  const getSortingArrow = (column:SortingColumn) => {
-    if(column === sortingColumn){
-      switch(sortingOrder){
+  const getFilteredAndSortedTodos = () => {
+    return sortByGivenAttributes(
+      getFilteredTodosByInputText(
+        getFinishedTodos(todos, showAll),
+        todoInputText,
+        showExact
+      )
+    )
+  }
+  const getSortingArrow = (column: SortingColumn) => {
+    if (column === sortingColumn) {
+      switch (sortingOrder) {
         case 'ascending':
           return <div> &#8593;</div>
         case 'descending':
@@ -59,8 +71,7 @@ export const TodoList = ({
         default:
           return ''
       }
-    }
-    else{
+    } else {
       return ''
     }
   }
@@ -99,7 +110,6 @@ export const TodoList = ({
         </Fragment>
       ))}
     </div>
-    
   ) : (
     <div>Es gibt keine Todos</div>
   )
