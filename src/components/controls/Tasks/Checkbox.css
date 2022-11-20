@@ -1,12 +1,8 @@
 .checkbox {
-  /* TODO: check if needed */
-  /* display: inline; */
   width: 20px;
   height: 20px;
-  align-self: center;
 }
 .checkbox--text {
-  align-self: center;
   display: inline;
   margin-right: 20px;
 }
