@@ -55,15 +55,24 @@ export const TodoList = ({
     setSortingColumn(column)
     setOrderDirection()
     filterTodoList()
-    setTodos(sortGivenTodoList(todos,column,sortingOrder))
+    todos = sortGivenTodoList(todos,column,sortingOrder)
+    setTodos(todos)
   }
   const setOrderDirection = () => {
-    if(sortingOrder === 'ascending'){
-      setSortingOrder('descending')
+    if(sortingOrder === 'unsorted'){
+      sortingOrder = 'ascending'
+      setSortingOrder(sortingOrder)
+    }
+    else if(sortingOrder === 'ascending'){
+      sortingOrder = 'descending'
+      setSortingOrder(sortingOrder)
     }
     else{
-      setSortingOrder('ascending')
+      sortingOrder = 'ascending'
+      setSortingOrder(sortingOrder)
     }
+    console.log(sortingOrder);
+    
   }
   const getSortingArrow = (column:SortingColumn) => {
     if(column === sortingColumn){

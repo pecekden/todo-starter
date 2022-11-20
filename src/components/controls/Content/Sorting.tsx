@@ -6,16 +6,16 @@ export const sortGivenTodoList = (todos:Todo[], column: SortingColumn, order: So
       case 'Importance':
         if(order === 'ascending'){
           todos.sort((a, b) => {
-            if (a.importance < b.importance) return 1
-            if (a.importance > b.importance) return -1
+            if (a.importance < b.importance) return -1
+            if (a.importance > b.importance) return 1
             return 0
           })
           break
         }
         else if(order === 'descending'){
             todos.sort((a, b) => {
-            if (a.importance < b.importance) return -1
-            if (a.importance > b.importance) return 1
+            if (a.importance < b.importance) return 1
+            if (a.importance > b.importance) return -1
             return 0
           })
           break
