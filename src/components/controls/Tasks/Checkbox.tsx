@@ -2,16 +2,16 @@ import './Checkbox.css'
 
 interface Props {
   isChecked: boolean
-  onClick: () => void
+  onChange: () => void
   text?: string
 }
-export const Checkbox = ({ isChecked, onClick, text }: Props) => (
+export const Checkbox = ({ isChecked, onChange, text }: Props) => (
   <>
     <input
       type="checkbox"
       className="checkbox"
       checked={isChecked}
-      onClick={onClick}
+      onChange={onChange}
     ></input>
     {text ? <div className="checkbox--text">{text}</div> : null}
   </>

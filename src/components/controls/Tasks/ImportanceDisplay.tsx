@@ -1,13 +1,12 @@
 import { Importance } from 'models/Importance'
 import { Todo } from 'models/Todo'
-import { Dispatch, SetStateAction } from 'react'
 import './ImportanceDisplay.css'
 
 interface Props {
   todoId: string
   importance: Importance
   todos: Todo[]
-  setTodos: Dispatch<SetStateAction<Todo[]>>
+  setTodos: (todos:Todo[]) => void
 }
 
 const importanceArray: Importance[] = [1, 2, 3]
