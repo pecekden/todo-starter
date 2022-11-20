@@ -30,12 +30,12 @@ export const Content = () => {
           showAll={showAll}
           showExact={showExact}
           todoInputText={todoInputText}
-          todos={todos}
-          setTodos={setTodos}
           sortingColumn={sortingColumn}
           setSortingColumn={setSortingColumn}
           sortingOrder={sortingOrder}
           setSortingOrder={setSortingOrder}
+          todos={todos}
+          setTodos={setTodos}
         ></TodoList>
       </div>
     </>

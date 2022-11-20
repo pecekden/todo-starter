@@ -48,3 +48,15 @@ export const sortGivenTodoList = (todos:Todo[], column: SortingColumn, order: So
     }
     return todos
 }
+
+export const setOrderDirection = (sortingOrder:SortingOrder) => {
+  if(sortingOrder === 'unsorted'){
+    return 'ascending'
+  }
+  else if(sortingOrder === 'ascending'){
+    return 'descending'
+  }
+  else{
+    return 'ascending'
+  }
+}
