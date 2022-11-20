@@ -1,5 +1,11 @@
-import { getFilteredTodosByInputText, getFinishedTodos } from 'components/controls/Content/Filtering'
-import { reverseOrderDirection, sortGivenTodoList } from 'components/controls/Content/Sorting'
+import {
+  getFilteredTodosByInputText,
+  getFinishedTodos,
+} from 'components/controls/Content/Filtering'
+import {
+  reverseOrderDirection,
+  sortGivenTodoList,
+} from 'components/controls/Content/Sorting'
 import { Button } from 'components/controls/Tasks/Button'
 import { Checkbox } from 'components/controls/Tasks/Checkbox'
 import { ImportanceDisplay } from 'components/controls/Tasks/ImportanceDisplay'
@@ -14,7 +20,7 @@ interface Props {
   showExact: boolean
   todoInputText: string
   todos: Todo[]
-  setTodos: (todos:Todo[]) => void
+  setTodos: (todos: Todo[]) => void
 }
 
 export const TodoList = ({
@@ -25,7 +31,7 @@ export const TodoList = ({
   setTodos,
 }: Props) => {
   const [sorting, setSorting] = useState<Sorting>()
-  
+
   const removeTodo = (id: string) => {
     setTodos(todos.filter(t => t.id !== id))
   }
@@ -38,23 +44,31 @@ export const TodoList = ({
     })
     setTodos(newTodos)
   }
-  const applySorting = (sortingColumn:SortingColumn) => {
-    if(sorting && sortingColumn === sorting.column){
-      setSorting({column:sortingColumn, order:reverseOrderDirection(sorting)})
-    }
-    else{
-      setSorting({column:sortingColumn, order: 'ascending'})
+  const applySorting = (sortingColumn: SortingColumn) => {
+    if (sorting && sortingColumn === sorting.column) {
+      setSorting({
+        column: sortingColumn,
+        order: reverseOrderDirection(sorting),
+      })
+    } else {
+      setSorting({ column: sortingColumn, order: 'ascending' })
     }
   }
   const sortByGivenAttributes = (todoList: Todo[]) => {
-    return sortGivenTodoList(todoList,sorting)
-}
-  const getFilteredAndSortedTodos = () => {
-    return sortByGivenAttributes(getFilteredTodosByInputText(getFinishedTodos(todos,showAll),todoInputText,showExact))
+    return sortGivenTodoList(todoList, sorting)
   }
-  const getSortingArrow = (sortingColumn:SortingColumn) => {
-    if(sorting && sortingColumn === sorting.column){
-      switch(sorting.order){
+  const getFilteredAndSortedTodos = () => {
+    return sortByGivenAttributes(
+      getFilteredTodosByInputText(
+        getFinishedTodos(todos, showAll),
+        todoInputText,
+        showExact
+      )
+    )
+  }
+  const getSortingArrow = (sortingColumn: SortingColumn) => {
+    if (sorting && sortingColumn === sorting.column) {
+      switch (sorting.order) {
         case 'ascending':
           return <div> &#8593;</div>
         case 'descending':
@@ -62,8 +76,7 @@ export const TodoList = ({
         default:
           return ''
       }
-    }
-    else{
+    } else {
       return ''
     }
   }
@@ -71,7 +84,10 @@ export const TodoList = ({
   return todos.length ? (
     <div className="table">
       <div></div>
-      <div className="headerClickable" onClick={() => applySorting('Importance')}>
+      <div
+        className="headerClickable"
+        onClick={() => applySorting('Importance')}
+      >
         Wichtigkeit {getSortingArrow('Importance')}
       </div>
       <div className="headerClickable" onClick={() => applySorting('Text')}>
@@ -102,7 +118,6 @@ export const TodoList = ({
         </Fragment>
       ))}
     </div>
-    
   ) : (
     <div>Es gibt keine Todos</div>
   )

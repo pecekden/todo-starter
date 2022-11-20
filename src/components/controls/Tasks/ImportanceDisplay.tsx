@@ -6,7 +6,7 @@ interface Props {
   todoId: string
   importance: Importance
   todos: Todo[]
-  setTodos: (todos:Todo[]) => void
+  setTodos: (todos: Todo[]) => void
 }
 
 const importanceArray: Importance[] = [1, 2, 3]
