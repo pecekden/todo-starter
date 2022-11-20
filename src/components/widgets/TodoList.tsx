@@ -94,7 +94,6 @@ export const TodoList = ({
         Aufgabe {getSortingArrow('Text')}
       </div>
       <div></div>
-      {/* TODO: check mapping table from the lecture */}
       {getFilteredAndSortedTodos().map(todo => (
         <Fragment key={todo.id}>
           <Checkbox
