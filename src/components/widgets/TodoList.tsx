@@ -80,7 +80,7 @@ export const TodoList = ({
         <Fragment key={todo.id}>
           <Checkbox
             isChecked={todo.done}
-            onClick={() => changeTodoIsDone(todo.id)}
+            onChange={() => changeTodoIsDone(todo.id)}
           ></Checkbox>
           <ImportanceDisplay
             todoId={todo.id}

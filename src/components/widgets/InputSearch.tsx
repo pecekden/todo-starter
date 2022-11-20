@@ -49,12 +49,12 @@ export const InputSearch = ({
         <Checkbox
           text="Alle Anzeigen"
           isChecked={showAll}
-          onClick={() => setShowAll(!showAll)}
+          onChange={() => setShowAll(!showAll)}
         ></Checkbox>
         <Checkbox
           text="Nache exakter Bezeichnung filtern"
           isChecked={showExact}
-          onClick={() => setShowExact(!showExact)}
+          onChange={() => setShowExact(!showExact)}
         ></Checkbox>
       </div>
     </>
