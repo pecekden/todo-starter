@@ -47,14 +47,14 @@ export const TodoList = ({
     })
     setTodos(newTodos)
   }
-  const filterTodoList = () =>{
+  const filterTodoList = () => {
     todos = getFinishedTodos(todos, showAll)
     todos = getFilteredTodos(todos, todoInputText, showExact)
   }
   const sortTodoList = (column:SortingColumn) => {
     setSortingColumn(column)
     setOrderDirection()
-    setTodos(sortGivenTodoList(todos,sortingColumn,sortingOrder))
+    setTodos(sortGivenTodoList(todos,column,sortingOrder))
   }
   const setOrderDirection = () => {
     if(sortingOrder === 'ascending'){
