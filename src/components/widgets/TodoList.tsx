@@ -6,33 +6,28 @@ import { ImportanceDisplay } from 'components/controls/Tasks/ImportanceDisplay'
 import { TaskDescription } from 'components/controls/Tasks/TaskDescription'
 import { SortingColumn, SortingOrder } from 'models/Sorting'
 import { Todo } from 'models/Todo'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import './TodoList.css'
 
 interface Props {
   showAll: boolean
   showExact: boolean
   todoInputText: string
-  sortingColumn:SortingColumn
-  sortingOrder:SortingOrder
   todos: Todo[]
   // Check if that is the right way for a UseState Action and compare with the project from the others
   setTodos: Dispatch<SetStateAction<Todo[]>>
-  setSortingColumn: Dispatch<SetStateAction<SortingColumn>>
-  setSortingOrder: Dispatch<SetStateAction<SortingOrder>>
 }
+
 
 export const TodoList = ({
   showAll,
   showExact,
   todoInputText,
   todos,
-  sortingColumn,
-  setSortingColumn,
-  sortingOrder,
-  setSortingOrder,
   setTodos,
 }: Props) => {
+  const [sortingColumn, setSortingColumn] = useState<SortingColumn>('None')
+  const [sortingOrder, setSortingOrder] = useState<SortingOrder>('unsorted')
   
   const removeTodo = (id: string) => {
     setTodos(todos.filter(t => t.id !== id))
