@@ -1,10 +1,11 @@
-import { SortingColumn, SortingOrder } from "models/Sorting"
+import { Sorting } from "models/Sorting"
 import { Todo } from "models/Todo"
 
-export function sortGivenTodoList(todos:Todo[], column: SortingColumn, order: SortingOrder){
-    switch (column) {
+export function sortGivenTodoList(todos:Todo[], sorting?:Sorting){
+  if(sorting){
+    switch (sorting.column) {
       case 'Importance':
-        if(order === 'ascending'){
+        if(sorting.order === 'ascending'){
           todos.sort((a, b) => {
             if (a.importance < b.importance) return -1
             if (a.importance > b.importance) return 1
@@ -12,7 +13,7 @@ export function sortGivenTodoList(todos:Todo[], column: SortingColumn, order: So
           })
           break
         }
-        else if(order === 'descending'){
+        else if(sorting.order === 'descending'){
             todos.sort((a, b) => {
             if (a.importance < b.importance) return 1
             if (a.importance > b.importance) return -1
@@ -24,7 +25,7 @@ export function sortGivenTodoList(todos:Todo[], column: SortingColumn, order: So
           break
         }
       case 'Text':
-        if(order === 'ascending'){
+        if(sorting.order === 'ascending'){
             todos.sort((a, b) => {
           if (a.text.toLowerCase() < b.text.toLowerCase()) return -1
           if (a.text.toLowerCase() === b.text.toLowerCase()) return 0
@@ -32,7 +33,7 @@ export function sortGivenTodoList(todos:Todo[], column: SortingColumn, order: So
         })
         break
       }
-      else if(order === 'descending'){
+      else if(sorting.order === 'descending'){
         todos.sort((a, b) => {
           if (a.text.toLowerCase() < b.text.toLowerCase()) return 1
           if (a.text.toLowerCase() === b.text.toLowerCase()) return 0
@@ -43,19 +44,20 @@ export function sortGivenTodoList(todos:Todo[], column: SortingColumn, order: So
       else{
         break
       }
-      case 'None':
+      default:
         break
     }
     return todos
-}
-export function changeOrderDirection(sortingOrder:SortingOrder){
-  if(sortingOrder === 'unsorted'){
-    return 'ascending'
-  }
-  else if(sortingOrder === 'ascending'){
-    return 'descending'
   }
   else{
-    return 'ascending'
+    return todos
   }
 }
+export function reverseOrderDirection(sorting?:Sorting){
+    if(sorting && sorting.order === 'ascending'){
+      return 'descending'
+    }
+    else {
+      return'ascending'
+    }
+  }

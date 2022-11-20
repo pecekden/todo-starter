@@ -1,10 +1,10 @@
 import { getFilteredTodosByInputText, getFinishedTodos } from 'components/controls/Content/Filtering'
-import { changeOrderDirection, sortGivenTodoList } from 'components/controls/Content/Sorting'
+import { reverseOrderDirection, sortGivenTodoList } from 'components/controls/Content/Sorting'
 import { Button } from 'components/controls/Tasks/Button'
 import { Checkbox } from 'components/controls/Tasks/Checkbox'
 import { ImportanceDisplay } from 'components/controls/Tasks/ImportanceDisplay'
 import { TaskDescription } from 'components/controls/Tasks/TaskDescription'
-import { SortingColumn, SortingOrder } from 'models/Sorting'
+import { Sorting, SortingColumn } from 'models/Sorting'
 import { Todo } from 'models/Todo'
 import { Fragment, useState } from 'react'
 import './TodoList.css'
@@ -24,8 +24,7 @@ export const TodoList = ({
   todos,
   setTodos,
 }: Props) => {
-  const [sortingColumn, setSortingColumn] = useState<SortingColumn>('None')
-  const [sortingOrder, setSortingOrder] = useState<SortingOrder>('unsorted')
+  const [sorting, setSorting] = useState<Sorting>()
   
   const removeTodo = (id: string) => {
     setTodos(todos.filter(t => t.id !== id))
@@ -39,19 +38,23 @@ export const TodoList = ({
     })
     setTodos(newTodos)
   }
-  const setSorting = (sortingColumn:SortingColumn) => {
-    setSortingColumn(sortingColumn)
-    setSortingOrder(changeOrderDirection(sortingOrder))
+  const applySorting = (sortingColumn:SortingColumn) => {
+    if(sorting && sortingColumn === sorting.column){
+      setSorting({column:sortingColumn, order:reverseOrderDirection(sorting)})
+    }
+    else{
+      setSorting({column:sortingColumn, order: 'ascending'})
+    }
   }
   const sortByGivenAttributes = (todoList: Todo[]) => {
-    return sortGivenTodoList(todoList,sortingColumn,sortingOrder )
+    return sortGivenTodoList(todoList,sorting)
 }
   const getFilteredAndSortedTodos = () => {
     return sortByGivenAttributes(getFilteredTodosByInputText(getFinishedTodos(todos,showAll),todoInputText,showExact))
   }
-  const getSortingArrow = (column:SortingColumn) => {
-    if(column === sortingColumn){
-      switch(sortingOrder){
+  const getSortingArrow = (sortingColumn:SortingColumn) => {
+    if(sorting && sortingColumn === sorting.column){
+      switch(sorting.order){
         case 'ascending':
           return <div> &#8593;</div>
         case 'descending':
@@ -68,10 +71,10 @@ export const TodoList = ({
   return todos.length ? (
     <div className="table">
       <div></div>
-      <div className="headerClickable" onClick={() => setSorting('Importance')}>
+      <div className="headerClickable" onClick={() => applySorting('Importance')}>
         Wichtigkeit {getSortingArrow('Importance')}
       </div>
-      <div className="headerClickable" onClick={() => setSorting('Text')}>
+      <div className="headerClickable" onClick={() => applySorting('Text')}>
         Aufgabe {getSortingArrow('Text')}
       </div>
       <div></div>
