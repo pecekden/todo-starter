@@ -1,7 +1,6 @@
 .table {
   margin-top: 100px;
   display: grid;
-  /* TODO: Check what looks good */
   grid-template-columns: 60px 200px auto 150px;
   column-gap: 1%;
   row-gap: 0.5em;
