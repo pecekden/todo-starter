@@ -4,8 +4,6 @@ import { InputText } from 'components/controls/Tasks/InputText'
 import { createTodo, Todo } from 'models/Todo'
 import { ChangeEvent } from 'react'
 
-//Was ist dispatch, change event und setstateaction?
-
 interface Props {
   todoInputText: string
   setTodoInputText: (inputText: string) => void
