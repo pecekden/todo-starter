@@ -54,6 +54,7 @@ export const TodoList = ({
   const sortTodoList = (column:SortingColumn) => {
     setSortingColumn(column)
     setOrderDirection()
+    filterTodoList()
     setTodos(sortGivenTodoList(todos,column,sortingOrder))
   }
   const setOrderDirection = () => {
@@ -79,8 +80,6 @@ export const TodoList = ({
       return ''
     }
   }
-
-  filterTodoList()
 
   return todos.length ? (
     <div className="table">

@@ -57,8 +57,6 @@ export const InputSearch = ({
           onClick={() => setShowExact(!showExact)}
         ></Checkbox>
       </div>
-     
-
     </>
   )
 }
