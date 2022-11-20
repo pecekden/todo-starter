@@ -1,6 +1,5 @@
-//import { getFilteredTodos, getFinishedTodos } from 'components/controls/Content/Filtering'
 import { getFilteredTodos, getFinishedTodos } from 'components/controls/Content/Filtering'
-import { sortGivenTodoList } from 'components/controls/Content/Sorting'
+import { setOrderDirection, sortGivenTodoList } from 'components/controls/Content/Sorting'
 import { Button } from 'components/controls/Tasks/Button'
 import { Checkbox } from 'components/controls/Tasks/Checkbox'
 import { ImportanceDisplay } from 'components/controls/Tasks/ImportanceDisplay'
@@ -48,31 +47,13 @@ export const TodoList = ({
     setTodos(newTodos)
   }
   const filterTodoList = () => {
-    todos = getFinishedTodos(todos, showAll)
-    todos = getFilteredTodos(todos, todoInputText, showExact)
+    return getFilteredTodos(getFinishedTodos(todos, showAll), todoInputText, showExact)
   }
+
   const sortTodoList = (column:SortingColumn) => {
     setSortingColumn(column)
-    setOrderDirection()
-    filterTodoList()
-    todos = sortGivenTodoList(todos,column,sortingOrder)
-    setTodos(todos)
-  }
-  const setOrderDirection = () => {
-    if(sortingOrder === 'unsorted'){
-      sortingOrder = 'ascending'
-      setSortingOrder(sortingOrder)
-    }
-    else if(sortingOrder === 'ascending'){
-      sortingOrder = 'descending'
-      setSortingOrder(sortingOrder)
-    }
-    else{
-      sortingOrder = 'ascending'
-      setSortingOrder(sortingOrder)
-    }
-    console.log(sortingOrder);
-    
+    setSortingOrder(setOrderDirection(sortingOrder))
+    setTodos(sortGivenTodoList(filterTodoList(),sortingColumn,sortingOrder))
   }
   const getSortingArrow = (column:SortingColumn) => {
     if(column === sortingColumn){
