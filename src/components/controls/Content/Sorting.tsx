@@ -26,17 +26,17 @@ export function sortGivenTodoList(todos:Todo[], column: SortingColumn, order: So
       case 'Text':
         if(order === 'ascending'){
             todos.sort((a, b) => {
-          if (a.text.toLowerCase() < b.text.toLowerCase()) return 1
+          if (a.text.toLowerCase() < b.text.toLowerCase()) return -1
           if (a.text.toLowerCase() === b.text.toLowerCase()) return 0
-          return -1
+          return 1
         })
         break
       }
       else if(order === 'descending'){
         todos.sort((a, b) => {
-          if (a.text.toLowerCase() < b.text.toLowerCase()) return -1
+          if (a.text.toLowerCase() < b.text.toLowerCase()) return 1
           if (a.text.toLowerCase() === b.text.toLowerCase()) return 0
-          return 1
+          return -1
         })
         break
       }
@@ -48,8 +48,7 @@ export function sortGivenTodoList(todos:Todo[], column: SortingColumn, order: So
     }
     return todos
 }
-
-export function setOrderDirection(sortingOrder:SortingOrder){
+export function changeOrderDirection(sortingOrder:SortingOrder){
   if(sortingOrder === 'unsorted'){
     return 'ascending'
   }

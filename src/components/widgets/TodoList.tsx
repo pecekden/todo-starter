@@ -1,12 +1,12 @@
 import { getFilteredTodosByInputText, getFinishedTodos } from 'components/controls/Content/Filtering'
-import { setOrderDirection, sortGivenTodoList } from 'components/controls/Content/Sorting'
+import { changeOrderDirection, sortGivenTodoList } from 'components/controls/Content/Sorting'
 import { Button } from 'components/controls/Tasks/Button'
 import { Checkbox } from 'components/controls/Tasks/Checkbox'
 import { ImportanceDisplay } from 'components/controls/Tasks/ImportanceDisplay'
 import { TaskDescription } from 'components/controls/Tasks/TaskDescription'
 import { SortingColumn, SortingOrder } from 'models/Sorting'
 import { Todo } from 'models/Todo'
-import { Dispatch, Fragment, SetStateAction, useState } from 'react'
+import { Fragment, useState } from 'react'
 import './TodoList.css'
 
 interface Props {
@@ -14,8 +14,7 @@ interface Props {
   showExact: boolean
   todoInputText: string
   todos: Todo[]
-  // Check if that is the right way for a UseState Action and compare with the project from the others
-  setTodos: Dispatch<SetStateAction<Todo[]>>
+  setTodos: (todos:Todo[]) => void
 }
 
 export const TodoList = ({
@@ -25,10 +24,9 @@ export const TodoList = ({
   todos,
   setTodos,
 }: Props) => {
-  //const [sorting, setSorting] = useState<Sorting>('unsorted')
   const [sortingColumn, setSortingColumn] = useState<SortingColumn>('None')
   const [sortingOrder, setSortingOrder] = useState<SortingOrder>('unsorted')
-  // TODO: Check if there is a better place (other file?) for the methods 
+  
   const removeTodo = (id: string) => {
     setTodos(todos.filter(t => t.id !== id))
   }
@@ -43,18 +41,14 @@ export const TodoList = ({
   }
   const setSorting = (sortingColumn:SortingColumn) => {
     setSortingColumn(sortingColumn)
-    setSortingOrder(setOrderDirection(sortingOrder))
-  }
-  const filterByInputText = (todoList: Todo[]) => {
-    return getFilteredTodosByInputText(todoList,todoInputText,showExact)
+    setSortingOrder(changeOrderDirection(sortingOrder))
   }
   const sortByGivenAttributes = (todoList: Todo[]) => {
     return sortGivenTodoList(todoList,sortingColumn,sortingOrder )
 }
   const getFilteredAndSortedTodos = () => {
-    return sortByGivenAttributes(filterByInputText(getFinishedTodos(todos,showAll)))
+    return sortByGivenAttributes(getFilteredTodosByInputText(getFinishedTodos(todos,showAll),todoInputText,showExact))
   }
-
   const getSortingArrow = (column:SortingColumn) => {
     if(column === sortingColumn){
       switch(sortingOrder){
@@ -105,6 +99,7 @@ export const TodoList = ({
         </Fragment>
       ))}
     </div>
+    
   ) : (
     <div>Es gibt keine Todos</div>
   )
