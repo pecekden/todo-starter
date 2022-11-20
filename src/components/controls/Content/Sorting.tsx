@@ -1,7 +1,7 @@
 import { SortingColumn, SortingOrder } from "models/Sorting"
 import { Todo } from "models/Todo"
 
-export const sortGivenTodoList = (todos:Todo[], column: SortingColumn, order: SortingOrder) => {
+export function sortGivenTodoList(todos:Todo[], column: SortingColumn, order: SortingOrder){
     switch (column) {
       case 'Importance':
         if(order === 'ascending'){
@@ -49,7 +49,7 @@ export const sortGivenTodoList = (todos:Todo[], column: SortingColumn, order: So
     return todos
 }
 
-export const setOrderDirection = (sortingOrder:SortingOrder) => {
+export function setOrderDirection(sortingOrder:SortingOrder){
   if(sortingOrder === 'unsorted'){
     return 'ascending'
   }
