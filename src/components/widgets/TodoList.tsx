@@ -1,12 +1,13 @@
+//import { getFilteredTodos, getFinishedTodos } from 'components/controls/Content/Filtering'
 import { getFilteredTodos, getFinishedTodos } from 'components/controls/Content/Filtering'
-import { getSortedTodoList} from 'components/controls/Content/Sorting'
+import { sortGivenTodoList } from 'components/controls/Content/Sorting'
 import { Button } from 'components/controls/Tasks/Button'
 import { Checkbox } from 'components/controls/Tasks/Checkbox'
 import { ImportanceDisplay } from 'components/controls/Tasks/ImportanceDisplay'
 import { TaskDescription } from 'components/controls/Tasks/TaskDescription'
 import { SortingColumn, SortingOrder } from 'models/Sorting'
 import { Todo } from 'models/Todo'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import './TodoList.css'
 
 interface Props {
@@ -33,11 +34,10 @@ export const TodoList = ({
   setSortingOrder,
   setTodos,
 }: Props) => {
-  // const [sorting, setSorting] = useState<Sorting>('unsorted')
+  
   const removeTodo = (id: string) => {
     setTodos(todos.filter(t => t.id !== id))
   }
-
   const changeTodoIsDone = (id: string) => {
     const newTodos = todos.map(t => {
       if (t.id === id) {
@@ -47,18 +47,16 @@ export const TodoList = ({
     })
     setTodos(newTodos)
   }
-
-  const sortByText = () => {
-    setSortingColumn('Text')
-    setSortingSettings()
-    setTodos(getSortedTodoList(todos,sortingColumn,sortingOrder))
+  const filterTodoList = () =>{
+    todos = getFinishedTodos(todos, showAll)
+    todos = getFilteredTodos(todos, todoInputText, showExact)
   }
-  const sortByImportance = () => {
-    setSortingColumn('Importance')
-    setSortingSettings()
-    setTodos(getSortedTodoList(todos,sortingColumn,sortingOrder))
+  const sortTodoList = (column:SortingColumn) => {
+    setSortingColumn(column)
+    setOrderDirection()
+    setTodos(sortGivenTodoList(todos,sortingColumn,sortingOrder))
   }
-  const setSortingSettings = () => {
+  const setOrderDirection = () => {
     if(sortingOrder === 'ascending'){
       setSortingOrder('descending')
     }
@@ -66,22 +64,32 @@ export const TodoList = ({
       setSortingOrder('ascending')
     }
   }
-  setTodos(getFinishedTodos(todos,showAll))
-  setTodos(getFilteredTodos(todos,todoInputText,showExact))
+  const getSortingArrow = (column:SortingColumn) => {
+    if(column === sortingColumn){
+      switch(sortingOrder){
+        case 'ascending':
+          return <div> &#8593;</div>
+        case 'descending':
+          return <div> &#8595;</div>
+        default:
+          return ''
+      }
+    }
+    else{
+      return ''
+    }
+  }
+
+  filterTodoList()
 
   return todos.length ? (
     <div className="table">
       <div></div>
-      <div className="headerClickable" onClick={sortByImportance}>
-        Wichtigkeit
-        {/* TODO: check if it's better with a function */}
-        {sortingColumn === 'Importance' && sortingOrder === 'ascending' ? <div> &#8593;</div> : ''}
-        {sortingColumn === 'Importance' && sortingOrder === 'descending' ? <div> &#8595;</div> : ''}
+      <div className="headerClickable" onClick={() => sortTodoList('Importance')}>
+        Wichtigkeit {getSortingArrow('Importance')}
       </div>
-      <div className="headerClickable" onClick={sortByText}>
-        Aufgabe
-        {sortingColumn === 'Text' && sortingOrder === 'ascending' ? <div> &#8593;</div> : ''}
-        {sortingColumn === 'Text' && sortingOrder === 'descending' ? <div> &#8595;</div> : ''}
+      <div className="headerClickable" onClick={() => sortTodoList('Text')}>
+        Aufgabe {getSortingArrow('Text')}
       </div>
       <div></div>
       {/* TODO: check mapping table from the lecture */}
@@ -112,3 +120,4 @@ export const TodoList = ({
     <div>Es gibt keine Todos</div>
   )
 }
+
